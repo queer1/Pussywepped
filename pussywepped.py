@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import readline,os,sys,time
 
+#Checks if user is root
 if os.geteuid() != 0:
 	print "Needs to be run as root"
 	sys.exit(1)
