@@ -1,5 +1,16 @@
 #!/usr/bin/env python
-import readline,os,time
+import readline,os,sys,time
+
+#Checks if user is root
+if os.geteuid() != 0:
+	print "Needs to be run as root"
+	sys.exit(1)
+
+if not os.path.exists('./dics/'):
+	os.makedirs('./dics/')
+
+if not os.path.exists('./box/'):
+	os.makedirs('./box/')	
 
 def init(): 
    initlist= ';'.join(("service network-manager stop",
