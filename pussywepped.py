@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-import readline
-import os
-import time
+import readline,os,time
 
 def init(): 
    initlist= ';'.join(("service network-manager stop",
@@ -77,11 +75,10 @@ def aircrack():
    print "aircrack-ng -z -b "+bssid+" box/"+essid+"*cap -l "+essid+"wpass.tkc"
    os.system("gnome-terminal -x aircrack-ng -z -b "+bssid+" box/"+essid+"*cap -l "+essid+"wpass.tkc")
 
-#the below code i'm just trying to print the password file content
 def printpass():
    fileexist = os.path.isfile(essid+"wpass.tkc")
    print fileexist
-   if fileexist == "True":
+   if fileexist == True:
       passfile = essid+"wpass.tkc"  
       getpass = open(passfile)
       puspass = getpass.readlines(1)
