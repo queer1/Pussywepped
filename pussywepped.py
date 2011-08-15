@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-import readline,os,time
+import readline,os,sys,time
+
+if os.geteuid() != 0:
+	print "Needs to be run as root"
+	sys.exit(1)
 
 def init(): 
    initlist= ';'.join(("service network-manager stop",
