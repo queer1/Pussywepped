@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import readline,os,sys,time
 
-#Checks if user is root
+# Preflight checks
 if os.geteuid() != 0:
 	print "Needs to be run as root"
 	sys.exit(1)
@@ -11,6 +11,28 @@ if not os.path.exists('./dics/'):
 
 if not os.path.exists('./box/'):
 	os.makedirs('./box/')	
+
+# I couldn't find a better way to do this unless you want to call a system command
+if not os.path.exists('/usr/bin/aircrack-ng'):
+	print "aircrack-ng is not installed."
+	sys.exit(1)
+
+if not os.path.exists('/usr/bin/macchanger'):
+	print "macchanger is not installed."
+	sys.exit(1)
+
+os = "blank"
+while(os == "blank"):
+	
+	os = sys.platform
+	if os == "linux2":
+          print "You are running Linux"
+	elif os == "windows":
+	  print "WTF? How did you get this running on Windows?"
+
+#######################################
+# Functions!
+######################################
 
 def init(): 
    initlist= ';'.join(("service network-manager stop",
@@ -129,9 +151,11 @@ station = macshow.read()[13:30]
 # starts listening for ivs
 listen()
 
+
 cont = "n"
 while (cont == "n"): 
    listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  DOS Deauth\n 9  Connect\n q  Quit\n\nplease pick a number: ")
+
    if listen_selection == "0":
       scan()
       # input target prefs
