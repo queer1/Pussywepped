@@ -21,14 +21,8 @@ if not os.path.exists('/usr/bin/macchanger'):
 	print "macchanger is not installed."
 	sys.exit(1)
 
-os = "blank"
-while(os == "blank"):
-	
-	os = sys.platform
-	if os == "linux2":
-          print "You are running Linux"
-	elif os == "windows":
-	  print "WTF? How did you get this running on Windows?"
+
+
 
 #######################################
 # Functions!
@@ -135,6 +129,17 @@ def connect():
    os.system(connectlist)
    
 #==========================qr==========================D
+
+
+osscan = "blank"
+while(osscan == "blank"):
+	
+	osscan = sys.platform
+	if osscan == "linux2":
+          print "You are running Linux"
+	elif osscan == "windows":
+	  print "WTF? How did you get this running on Windows?"
+
 
 interface = "wlan0"
 interface = raw_input("interface: ")
