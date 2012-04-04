@@ -201,7 +201,7 @@ while (cont == "n"):
    elif listen_selection == "9":
       connect()	
    elif listen_selection == "10":
-      WPA_PSK()
+      WPS_Crack()
    elif listen_selection == "q":
       print "cleaning up"
       housekeeping()
