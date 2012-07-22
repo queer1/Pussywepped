@@ -23,8 +23,6 @@ if not os.path.exists('/usr/bin/macchanger'):
 	
 if not os.path.exists('/usr/bin/reaver'):
 	print "reaver is not installed. Please install reaver to use wps cracking"
-	
-
 
 
 
@@ -168,7 +166,7 @@ listen()
 
 cont = "n"
 while (cont == "n"): 
-   listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  DOS Deauth\n 9  Connect\n 10 WPS Cracking\n q  Quit\n\nplease pick a number: ")
+   listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  DOS Deauth\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n q  Quit\n\nplease pick a number: ")
 
    if listen_selection == "0":
       scan()
@@ -205,14 +203,16 @@ while (cont == "n"):
    elif listen_selection == "q":
       print "cleaning up"
       housekeeping()
-   
    elif listen_selection == "qr":
       print "Oh god dammit, fuck you"
       housekeeping()
-   elif listen_selection == "spoof":
+   elif listen_selection == "11":
       spoofmac = raw_input("mac? ")
       macspoof()
       station = spoofmac 
+   elif listen_selection =="12":
+      spoofap = raw_input("AP ESSID")
+      apspoof()
    elif listen_selection == "quicky":
       print "performing quickie"
       fakeauth()
