@@ -37,21 +37,25 @@ if args.installation == True:
 		file.close()
 		os.system('chmod +x /usr/bin/pussywepped')
 
+		exe_dkpg = True
 		if not os.path.exists('/usr/bin/aircrack-ng') and not os.path.exists('/usr/local/bin/aircrack-ng'):
 			os.system('dpkg --configure -a && apt-get install -f && apt-get update')
 			os.system('apt-get install linux-headers-$(uname -r) build-essential make patch git gettext autoconf subversion tcl8.5 openssl zlib1g zlib1g-dev libssh2-1-dev libssl-dev libnl1 libnl-dev libpcap0.8 libpcap0.8-dev python-scapy python-dev cracklib-runtime macchanger-gtk tshark ethtool')
+			exe_dkpg = False
 			os.system('mkdir /usr/src/drivers')
-			os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 /usr/src/drivers')
-			os.system('tar -jxv /usr/src/drivers/iw-latest.tar.bz2')
-			os.system('make --directory=/usr/src/drivers/iw*/')
-			os.system('make --directory=install /usr/src/drivers/iw*/')
+			os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 -P /usr/src/drivers')
+			os.system('tar -jxvf /usr/src/drivers/iw-latest.tar.bz2 -C /usr/src/drivers/')
+			iw_folder = os.popen('ls -d /usr/src/drivers/*/').read()
+			os.system('make --directory='+iw_folder)
+			os.system('make install --directory='+iw_folder)
 			os.system('svn co http://trac.aircrack-ng.org/svn/trunk ~/Downloads/aircrack-ng')
 			os.system('make --directory=~/Downloads/aircrack-ng/')
 			os.system('make install --directory=~/Downloads/aircrack-ng/')
 
 		if not os.path.exists('/usr/bin/reaver'):
-			os.system('dpkg --configure -a && apt-get install -f && apt-get update')
-			os.system('apt-get install libpcap-dev libsqlite3-dev')
+			if exe_dkpg == True:
+				os.system('dpkg --configure -a && apt-get install -f && apt-get update')
+			os.system('apt-get install libpcap-dev libsqlite3-dev svn')
 			os.system('svn co http://reaver-wps.googlecode.com/svn/trunk/ ~/Downloads/reaver')
 			os.chdir(home_path+'/Downloads/reaver/src')
 			os.system('./configure')
@@ -89,9 +93,10 @@ if args.update == True:
 		sys.exit(1)
 		
 	os.system('dpkg --configure -a && apt-get install -f && apt-get update')
-	os.system('apt-get install linux-headers-$(uname -r) build-essential make patch git gettext autoconf subversion tcl8.5 openssl zlib1g zlib1g-dev libssh2-1-dev libssl-dev libnl1 libnl-dev libpcap0.8 libpcap0.8-dev libpcap-dev libsqlite3-dev python-scapy python-dev cracklib-runtime macchanger-gtk tshark ethtool')
-
-	if os.path.exists('/usr/local/lib/pussywepped') and not os.path.exisis('/usr/local/lib/pussywepped/pussywepped_old.py'):
+	os.system('apt-get install --reinstall git')
+	
+	filename = os.path.basename(__file__)
+	if os.path.exists('/usr/local/lib/pussywepped') and not os.path.exists('/usr/local/lib/pussywepped/pussywepped_old.py'):
 		if os.path.exists('/usr/local/lib/pussywepped/github/Pussywepped'):
 			os.chdir('/usr/local/lib/pussywepped/github/Pussywepped')
 			os.system('git pull https://www.github.com/shazbottkc/Pussywepped')
@@ -105,18 +110,20 @@ if args.update == True:
 		os.system('mv /usr/local/lib/pussywepped/github/Pussywepped/pussywepped.py /usr/local/lib/pussywepped/pussywepped.py')
 		os.system('pussywepped --update')
 	else:
-		print "Pussywepped is not installed on the hard drive.  Run './sudo python pussywepped.py --install' (without quotes) for installation."
+		print "Pussywepped is not installed on the hard drive.  Run 'sudo python ./"+filename+" --install' (without quotes) for installation."
 	sys.exit(1)
 
-	if os.path.exists('/usr/local/lib/pussywepped') and os.path.exisis('/usr/local/lib/pussywepped/pussywepped_old.py'):
+	if os.path.exists('/usr/local/lib/pussywepped') and os.path.exists('/usr/local/lib/pussywepped/pussywepped_old.py'):
 		os.system('rm -rf /usr/local/lib/pussywepped/pussywepped_old.py')
+		os.system('apt-get install --reinstall linux-headers-$(uname -r) build-essential make patch gettext autoconf subversion tcl8.5 openssl zlib1g zlib1g-dev libssh2-1-dev libssl-dev libnl1 libnl-dev libpcap0.8 libpcap0.8-dev libpcap-dev libsqlite3-dev python-scapy python-dev cracklib-runtime macchanger-gtk tshark ethtool')
 		
 		if os.path.exists('/usr/local/bin/aircrack-ng'):
 			os.system('rm -rf /usr/src/drivers/*')
-			os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 /usr/src/drivers')
-			os.system('tar -jxv /usr/src/drivers/iw-latest.tar.bz2')
-			os.system('make --directory=/usr/src/drivers/iw*/')
-			os.system('make --directory=install /usr/src/drivers/iw*/')
+			os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 -P /usr/src/drivers')
+			os.system('tar -jxvf /usr/src/drivers/iw-latest.tar.bz2 -C /usr/src/drivers/')
+			iw_folder = os.popen('ls -d /usr/src/drivers/*/').read()
+			os.system('make --directory='+iw_folder)
+			os.system('make install --directory='+iw_folder)
 			if os.path.exists(home_path+'/Downloads/aircrack-ng'):
 				os.system('svn update ~/Downloads/aircrack-ng')
 			else:
@@ -148,7 +155,7 @@ if not os.path.exists('/usr/local/lib/pussywepped/box/'):
 	os.makedirs('/usr/local/lib/pussywepped/box/')	
 
 # I couldn't find a better way to do this unless you want to call a system command
-# Patched for Ubuntu 11.10 and aircrack-ng from SVN
+# Patched for Ubuntu 11.10+ and aircrack-ng & reaver from SVN
 if not os.path.exists('/usr/bin/aircrack-ng') and not os.path.exists('/usr/local/bin/aircrack-ng'):
 	print "aircrack-ng is not installed."
 	sys.exit(1)
@@ -353,7 +360,7 @@ while (cont == "n"):
 		print "performing quickie"
 		fakeauth()
 		arpreplay()
-   else:
+	else:
 		print ">:("
 	
 print "I'm out biatch"
