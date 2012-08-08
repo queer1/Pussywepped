@@ -218,11 +218,11 @@ def housekeeping():
    os.sys.exit()
 
 def scan():
-   os.system("airodump-ng -t WEP -t WPA -t WPA1 -t WPA2 mon1")
+   os.system("airodump-ng -t WEP -t WPA -t WPA1 -t WPA2 -a mon1")
 
 def listen():
-   print "airodump-ng -c "+channel+" --bssid "+bssid+" -w box/"+essid+" --ignore-negative-one mon1"
-   os.system("gnome-terminal -x airodump-ng -c "+channel+" --bssid "+bssid+" -w box/\""+essid+"\" --ignore-negative-one mon1 &")
+   print "airodump-ng -c "+channel+" --bssid "+bssid+" -w box/"+essid+" --showack --ignore-negative-one mon1"
+   os.system("gnome-terminal -x airodump-ng -c "+channel+" --bssid "+bssid+" -w box/\""+essid+"\" --showack --ignore-negative-one mon1 &")
 
 def fakeauth():
    fauth_success = "y"
