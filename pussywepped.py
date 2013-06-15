@@ -92,55 +92,55 @@ if args.update == True:
 		print "Needs to be run as root"
 		sys.exit(1)
 		
-	os.system('dpkg --configure -a && apt-get install -f && apt-get update')
-	os.system('apt-get install --reinstall git')
-	
 	filename = os.path.basename(__file__)
-	if os.path.exists('/usr/local/lib/pussywepped') and not os.path.exists('/usr/local/lib/pussywepped/pussywepped_old.py'):
-		if os.path.exists('/usr/local/lib/pussywepped/github/Pussywepped'):
-			os.chdir('/usr/local/lib/pussywepped/github/Pussywepped')
-			os.system('git pull https://www.github.com/shazbottkc/Pussywepped')
-			os.chdir(parent_path)
-		else:
-			os.system('mkdir /usr/local/lib/pussywepped/github')
-			os.chdir('/usr/local/lib/pussywepped/github')
-			os.system('git clone https://www.github.com/shazbottkc/Pussywepped')
-			os.chdir(parent_path)
-		os.system('mv /usr/local/lib/pussywepped/pussywepped.py /usr/local/lib/pussywepped/pussywepped_old.py')
-		os.system('mv /usr/local/lib/pussywepped/github/Pussywepped/pussywepped.py /usr/local/lib/pussywepped/pussywepped.py')
-		os.system('pussywepped --update')
+	if os.path.exists('/usr/local/lib/pussywepped'):
+		if not os.path.exists('/usr/local/lib/pussywepped/pussywepped_old.py'):
+			os.system('dpkg --configure -a && apt-get install -f && apt-get update')
+			os.system('apt-get install --reinstall git')
+			if os.path.exists('/usr/local/lib/pussywepped/github/Pussywepped'):
+				os.chdir('/usr/local/lib/pussywepped/github/Pussywepped')
+				os.system('git pull https://www.github.com/shazbottkc/Pussywepped')
+				os.chdir(parent_path)
+			else:
+				os.system('mkdir /usr/local/lib/pussywepped/github')
+				os.chdir('/usr/local/lib/pussywepped/github')
+				os.system('git clone https://www.github.com/shazbottkc/Pussywepped')
+				os.chdir(parent_path)
+			os.system('mv /usr/local/lib/pussywepped/pussywepped.py /usr/local/lib/pussywepped/pussywepped_old.py')
+			os.system('mv /usr/local/lib/pussywepped/github/Pussywepped/pussywepped.py /usr/local/lib/pussywepped/pussywepped.py')
+			os.system('pussywepped --update')
+			sys.exit(1)
+	
+		if os.path.exists('/usr/local/lib/pussywepped/pussywepped_old.py'):
+			os.system('rm -rf /usr/local/lib/pussywepped/pussywepped_old.py')
+			os.system('apt-get install --reinstall linux-headers-$(uname -r) build-essential make patch gettext autoconf subversion tcl8.5 openssl zlib1g zlib1g-dev libssh2-1-dev libssl-dev libnl1 libnl-dev libpcap0.8 libpcap0.8-dev libpcap-dev libsqlite3-dev python-scapy python-dev cracklib-runtime macchanger-gtk tshark ethtool')
+		
+			if os.path.exists('/usr/local/bin/aircrack-ng'):
+				os.system('rm -rf /usr/src/drivers/*')
+				os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 -P /usr/src/drivers')
+				os.system('tar -jxvf /usr/src/drivers/iw-latest.tar.bz2 -C /usr/src/drivers/')
+				iw_folder = os.popen('ls -d /usr/src/drivers/*/').read()
+				os.system('make --directory='+iw_folder)
+				os.system('make install --directory='+iw_folder)
+				if os.path.exists(home_path+'/Downloads/aircrack-ng'):
+					os.system('svn update ~/Downloads/aircrack-ng')
+				else:
+					os.system('svn co http://trac.aircrack-ng.org/svn/trunk ~/Downloads/aircrack-ng')
+				os.system('make --directory=~/Downloads/aircrack-ng/')
+				os.system('make install --directory=~/Downloads/aircrack-ng/')			
+	
+			if os.path.exists('/usr/bin/reaver'):
+				if os.path.exists(home_path+'/Downloads/reaver'):
+					os.system('svn update ~/Downloads/reaver')
+				else:
+					os.system('svn co http://reaver-wps.googlecode.com/svn/trunk/ ~/Downloads/reaver')
+				os.chdir(home_path + '/Downloads/reaver/src')
+				os.system('./configure')
+				os.system('make')
+				os.system('make install')
+				os.chdir(parent_path)
 	else:
 		print "Pussywepped is not installed on the hard drive.  Run 'sudo python ./"+filename+" --install' (without quotes) for installation."
-	sys.exit(1)
-
-	if os.path.exists('/usr/local/lib/pussywepped') and os.path.exists('/usr/local/lib/pussywepped/pussywepped_old.py'):
-		os.system('rm -rf /usr/local/lib/pussywepped/pussywepped_old.py')
-		os.system('apt-get install --reinstall linux-headers-$(uname -r) build-essential make patch gettext autoconf subversion tcl8.5 openssl zlib1g zlib1g-dev libssh2-1-dev libssl-dev libnl1 libnl-dev libpcap0.8 libpcap0.8-dev libpcap-dev libsqlite3-dev python-scapy python-dev cracklib-runtime macchanger-gtk tshark ethtool')
-		
-		if os.path.exists('/usr/local/bin/aircrack-ng'):
-			os.system('rm -rf /usr/src/drivers/*')
-			os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 -P /usr/src/drivers')
-			os.system('tar -jxvf /usr/src/drivers/iw-latest.tar.bz2 -C /usr/src/drivers/')
-			iw_folder = os.popen('ls -d /usr/src/drivers/*/').read()
-			os.system('make --directory='+iw_folder)
-			os.system('make install --directory='+iw_folder)
-			if os.path.exists(home_path+'/Downloads/aircrack-ng'):
-				os.system('svn update ~/Downloads/aircrack-ng')
-			else:
-				os.system('svn co http://trac.aircrack-ng.org/svn/trunk ~/Downloads/aircrack-ng')
-			os.system('make --directory=~/Downloads/aircrack-ng/')
-			os.system('make install --directory=~/Downloads/aircrack-ng/')			
-
-		if os.path.exists('/usr/bin/reaver'):
-			if os.path.exists(home_path+'/Downloads/reaver'):
-				os.system('svn update ~/Downloads/reaver')
-			else:
-				os.system('svn co http://reaver-wps.googlecode.com/svn/trunk/ ~/Downloads/reaver')
-			os.chdir(home_path + '/Downloads/reaver/src')
-			os.system('./configure')
-			os.system('make')
-			os.system('make install')
-			os.chdir(parent_path)
 	sys.exit(1)
 
 # Preflight checks
