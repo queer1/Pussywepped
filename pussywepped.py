@@ -43,12 +43,10 @@ if args.installation == True:
 			os.system('apt-get install linux-headers-$(uname -r) build-essential make patch git gettext autoconf subversion tcl8.5 openssl zlib1g zlib1g-dev libssh2-1-dev libssl-dev libnl1 libnl-dev libpcap0.8 libpcap0.8-dev python-scapy python-dev cracklib-runtime macchanger-gtk tshark ethtool')
 			exe_dkpg = False
 			os.system('mkdir /usr/src/drivers')
-			os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 -P /usr/src/drivers')
-			os.system('tar -jxvf /usr/src/drivers/iw-latest.tar.bz2 -C /usr/src/drivers/')
-			iw_folder = os.popen('ls -d /usr/src/drivers/*/').read()
-			os.system('make --directory='+iw_folder)
-			os.system('make install --directory='+iw_folder)
-			os.system('svn co http://trac.aircrack-ng.org/svn/trunk ~/Downloads/aircrack-ng')
+			os.system('git clone http://git.kernel.org/?p=linux/kernel/git/jberg/iw.git /usr/src/drivers')
+			os.system('make --directory=/usr/src/drivers')
+			os.system('make install --directory=/usr/src/drivers')
+			os.system('svn co http://svn.aircrack-ng.org/trunk/ ~/Downloads/aircrack-ng')
 			os.system('make --directory=~/Downloads/aircrack-ng/')
 			os.system('make install --directory=~/Downloads/aircrack-ng/')
 
@@ -117,15 +115,13 @@ if args.update == True:
 		
 			if os.path.exists('/usr/local/bin/aircrack-ng'):
 				os.system('rm -rf /usr/src/drivers/*')
-				os.system('wget http://wireless.kernel.org/download/iw/iw-latest.tar.bz2 -P /usr/src/drivers')
-				os.system('tar -jxvf /usr/src/drivers/iw-latest.tar.bz2 -C /usr/src/drivers/')
-				iw_folder = os.popen('ls -d /usr/src/drivers/*/').read()
-				os.system('make --directory='+iw_folder)
-				os.system('make install --directory='+iw_folder)
+				os.system('git clone http://git.kernel.org/?p=linux/kernel/git/jberg/iw.git /usr/src/drivers')
+				os.system('make --directory=/usr/src/drivers')
+				os.system('make install --directory=/usr/src/drivers')
 				if os.path.exists(home_path+'/Downloads/aircrack-ng'):
 					os.system('svn update ~/Downloads/aircrack-ng')
 				else:
-					os.system('svn co http://trac.aircrack-ng.org/svn/trunk ~/Downloads/aircrack-ng')
+					os.system('svn co http://svn.aircrack-ng.org/trunk/ ~/Downloads/aircrack-ng')
 				os.system('make --directory=~/Downloads/aircrack-ng/')
 				os.system('make install --directory=~/Downloads/aircrack-ng/')			
 	
