@@ -294,7 +294,7 @@ bssid = raw_input("bssid: ")
 essid = raw_input("essid: ")
 channel = raw_input("channel: ")
 macshow = os.popen("macchanger -s mon0")
-station = macshow.read()[13:30]
+station = macshow.read()[15:32]
 
 # starts listening for ivs
 listen()
@@ -310,7 +310,7 @@ while (cont == "n"):
 		essid = raw_input("essid: ")
 		channel = raw_input("channel: ")
 		macshow = os.popen("macchanger -s mon0")
-		station = macshow.read()[13:30]
+		station = macshow.read()[15:32]
 		listen()	
 	elif listen_selection == "1":
 		fakeauth()
