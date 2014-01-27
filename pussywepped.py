@@ -277,15 +277,15 @@ def apspoof():
    print spoofinap
    os.system ("gnome-terminal -x "+spoofinap+" &")
    
-def beaconflood():
-   echo "type a bucket of random ssid names on eachline then add a line that says EOF to close it off"
-   cat << EOF > beacon.lst
-   mdk3 mon0 b -f beacon.lst
+#def beaconflood():
+#   os.system ("echo 'type a bucket of random ssid names on eachline then add a line that says EOF to close it off'")
+#   os.system ("cat << EOF > beacon.lst")
+#   os.system (("mdk3 mon0 b -f beacon.lst")
 #==========================qr==========================D
 
+osscan = 1
 
-osscan = "blank"
-while(osscan == "blank"):
+while(osscan == 1):
 	
 	osscan = sys.platform
 	if osscan == "linux2":
